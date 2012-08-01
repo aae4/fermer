@@ -1,0 +1,8 @@
+<p id="notice"><%= notice %></p>
+<h1>Main Page</h1>
+<% if User.find_by_id(session[:user_id]) %>
+	<%= link_to 'Log Out', :controller => 'admin', :action => 'logout' %>
+<% else %>
+	<%= link_to 'Log In', :controller => 'admin', :action => 'login' %>
+	<%= link_to 'Register', new_user_path %>
+<% end %>

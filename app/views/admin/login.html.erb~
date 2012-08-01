@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+<%= form_tag do %>
+	<fieldset>
+		<legend>Log In</legend>
+		<div id="login-box-name"> 
+			<label for="name">Имя пользователя:</label> 
+		</div>
+		<div id="login-box-field">
+			 <%= text_field_tag :name, params[:name] %>
+		 </div>
+		<div id="login-box-name">
+			<label for="password">Пароль:</label>
+		</div>
+		<div id="login-box-field">
+			<%= password_field_tag :password, params[:password] %>
+		</div>
+		<br />
+		<br />
+		<%= submit_tag "Вход" %> <%= link_to "Register", new_user_path %> <%= link_to "Main page", root_path %>
+	</fieldset>
+<% end %>

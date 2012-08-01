@@ -1,0 +1,7 @@
+<% if flash[:notice] %>
+     <p class="notice"><%= flash[:notice] %></p>
+     <h1>notice</h1>
+<% end %>
+<h1>Admin#index</h1>
+<p>Find me in app/views/admin/index.html.erb</p>
+<%= link_to "Users", :controller => :users %>
