@@ -8,4 +8,5 @@
 <% else %>
 	<%= link_to 'Log In', :controller => 'admin', :action => 'login' %>
 	<%= link_to 'Register', new_user_path %>
+	<%= link_to 'Forgot your password?', :controller => 'reset_passwords', :action => 'new' %>
 <% end %>

@@ -36,6 +36,10 @@
 	  <%= f.radio_button :role, "покупатель" %>
 	  <%= f.label :role, 'покупатель'%> <br /> <br />
   <% end %>
+  <div class="field">
+    <%= f.label :verif_code , 'verif_code' %><br />
+    <%= f.text_field :verif_code %>
+  </div>
   <div class="actions">
     <%= f.submit "Редактировать" %>
   </div>

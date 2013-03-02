@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_filter :authorize_adm, :only => [:destroy,:show,:edit]
   before_filter :auth, :except => [:new,:create]
+
   #after_filter :authorize_adm, :only => [:new,:create]
   #before_filter :auth_adm, :only => [:index]
   # GET /users
@@ -60,11 +61,17 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-	flash[:notice]='Your account was successfully created. Now you can login' 
-        format.html { redirect_to :controller => 'admin', :action => 'login'}
-	#format.html { redirect_to root_path}
+	@user.create_verif_code
+	UserMailer.sent_mail(@user).deliver
+	
+	flash[:notice]='The mail was sent. Please follow the instructions in your mail to complete the registration.'
+	format.html { redirect_to root_path}
+
+	#flash[:notice]='Your account was successfully created. Now you can login'
+        #format.html { redirect_to :controller => 'admin', :action => 'login'}
         format.json { render json: @user, status: :created, location: @user }
       else
+	flash[:notice]='User was not found'
         format.html { render action: "new" }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
@@ -98,4 +105,5 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
+
 end

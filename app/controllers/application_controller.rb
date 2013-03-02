@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  before_filter :auth, :except => [:login]
   helper :all
   protect_from_forgery :secret => '8fc080370e56e929a2d5afca5540a0f7'
 
@@ -28,6 +27,12 @@ protected
 			flash[:notice]='Please Log In first'
 		        format.html { redirect_to :controller => 'admin', :action => 'login'}
 		end
+	end
+  end
+
+  def non_auth
+	unless !User.find_by_id(session[:user_id])
+		flash[:notice]='You must be logged out for this action!'
 	end
   end
 

@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :name %><br />
-    <%= f.text_field :name :size => 40 %>
+    <%= f.text_field :name, :size => 40 %>
   </div>
   <div class="field">
     <%= f.label :user_password, 'Password' %><br />
@@ -22,6 +22,10 @@
   <div class="field">
     <%= f.label :user_password_confirmation , 'Confirm' %><br />
     <%= f.password_field :password_confirmation, :size => 40%>
+  </div>
+  <div class="field">
+    <%= f.label :verif_code , 'verif_code' %><br />
+    <%= f.verif_code_field :verif_code%>
   </div>
   <div class="actions">
     <%= f.submit "Add user" %>

@@ -1,4 +1,6 @@
 Fermer::Application.routes.draw do
+  resources :verifications
+  resources :reset_passwords
   resources :users
   resources :home
   #resources :admin
@@ -6,6 +8,13 @@ Fermer::Application.routes.draw do
   get "admin/login"
   get "admin/logout"
   get "admin/index"
+  get "reset_passwords/new"
+  get "reset_passwords/edit"
+  #post "reset_passwords"
+  match 'reset_passwords/edit/:id' => 'reset_passwords#edit'
+  match 'verifications/show/:id' => 'verifications#show'
+  #match 'reset_passwords/edit/:id' => 'reset_passwords#edit'
+  #match 'reset_passwords/edit/:id' => 'reset_passwords#edit', :as => :reset_passwords, :via => :put
 
 
   # The priority is based upon order of creation:
@@ -63,5 +72,5 @@ Fermer::Application.routes.draw do
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
-  # match ':controller(/:action(/:id))(.:format)'
+  #match ':controller(/:action(/:id))(.:format)'
 end

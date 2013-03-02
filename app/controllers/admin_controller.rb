@@ -1,15 +1,19 @@
 class AdminController < ApplicationController
-
+  before_filter :auth, :except => [:login,:show]
   def login
 	session[:user_id]=nil
 	if request.post?
 		user=User.authenticate(params[:name], params[:password])
 		if user
-			session[:user_id]=user.id
-			uri=session[:original_uri]
-			session[:original_uri]=nil
-			redirect_to(uri || root_path)
-			flash[:notice]="You just was logged in as #{user.name}"
+			if user.is_verified
+				session[:user_id]=user.id
+				uri=session[:original_uri]
+				session[:original_uri]=nil
+				redirect_to(uri || root_path)
+				flash[:notice]="You just was logged in as #{user.name}"
+			else
+				flash[:notice]= "You have not yet verified your account"
+			end
 		else
 			flash.now[:notice]="Invalid user/password combination"
 		end

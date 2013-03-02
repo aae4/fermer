@@ -1,9 +1,9 @@
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
-  attr_accessible :hashed_password, :name, :salt, :password, :password_confirmation, :role, :email
+  attr_accessible :hashed_password, :name, :salt, :password, :password_confirmation, :role, :email, :verified, :verif_code
   validates :name, :length => {:minimum => 3, :maximum => 20}
-  validates_presence_of :name, :password, :email
+  validates_presence_of :name, :email, :role
   validates_uniqueness_of :name
   attr_accessor :password_confirmation
   validates_confirmation_of :password
@@ -13,7 +13,21 @@ class User < ActiveRecord::Base
   validates :email, :format => {:with => email_regex},
 				:uniqueness => { :case_sensitive => false }
 
+  #before_filter :is_verified
 
+  def create_verif_code
+	  self.verif_code = Digest::SHA1.hexdigest("#{Time.now}-#{self.email}")
+	  self.save
+  end
+
+  def verify
+	  self.verified = true
+	  self.save
+  end
+
+  def is_verified
+	self.verified || self.role == 'admin'
+  end
 
   def self.authenticate(name,password)
 	user=self.find_by_name(name)

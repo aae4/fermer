@@ -17,7 +17,11 @@
 
 <p>
   <b>Role:</b>
-  <%= @user.salt %>
+  <%= @user.role %>
+</p>
+<p>
+  <b>Verif_code:</b>
+  <%= @user.role %>
 </p>
 
 
